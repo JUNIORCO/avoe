@@ -1,5 +1,5 @@
 #recording-container {
-  margin-top: 150px;
+  margin-top: 125px;
 
   /* Fade in animation */
   -webkit-animation: fadein 2s;
@@ -42,7 +42,7 @@
   height: 100%;
   border-radius: 50%;
   content: '';
-  box-shadow: inset 0 0 0 3px blueviolet;
+  box-shadow: inset 0 0 0 4px blueviolet;
   transition: transform 0.4s, opacity 0.2s;
   animation: pulsing 3s infinite;
   animation-delay: 0.75s;

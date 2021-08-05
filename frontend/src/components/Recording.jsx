@@ -5,10 +5,10 @@ import '../stylesheets/Recording.css';
 
 const Recording = () => {
   useEffect(() => {
-    const record = document.getElementById('recording-btn');
+    // const record = document.getElementById('recording-btn');
     // const mainSection = document.querySelector('.main-controls');
 
-    record.disabled = true; // disable stop button while not recording
+    // record.disabled = true; // disable stop button while not recording
 
     if (navigator.mediaDevices.getUserMedia) {
       const constraints = { audio: true };
@@ -22,8 +22,13 @@ const Recording = () => {
   };
 
   return (
-    <div id="recording-container" className="pulsing">
-      <button id="recording-btn" onClick={toggleImage} type="button">
+    <div id="recording-container">
+      <button
+        id="recording-btn"
+        className="pulsing"
+        onClick={toggleImage}
+        type="button"
+      >
         <img id="recording-logo" src={micGrayScale} alt="logo" />
       </button>
     </div>
