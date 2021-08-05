@@ -1,15 +1,14 @@
 import React from 'react';
-import logo from '../logo.svg';
+import PropTypes from 'prop-types';
 
-const AppContainer = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-    </header>
-  </div>
-);
+const AppContainer = (props) => {
+  const { children } = props;
+
+  return <div className="App-Container">{children}</div>;
+};
+
+AppContainer.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default AppContainer;
