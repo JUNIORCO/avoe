@@ -47,7 +47,7 @@ const Recorder = (props) => {
 
   const handleRecordedState = () => {
     console.log('User finished recording');
-    setMicSrc(micColored);
+    setMicSrc(micGrayScale);
   };
 
   const handleResetState = () => {
