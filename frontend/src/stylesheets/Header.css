@@ -2,7 +2,7 @@
   margin-top: 75px;
 }
 
-.WelcomeText, .DescriptionText {
+.welcome-text, .description-text {
   color: white;
   font-size: x-large;
 
@@ -10,7 +10,7 @@
   animation: fadein 2s;
 }
 
-.DescriptionText {
+.description-text {
   opacity: 0;
   animation-delay: 1s;
   animation-fill-mode: forwards;

@@ -1,0 +1,9 @@
+canvas {
+  display: block;
+}
+
+.visualizer {
+  height: 60px;
+  width: 765px;
+  visibility: hidden;
+}

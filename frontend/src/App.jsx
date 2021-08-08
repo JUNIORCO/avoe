@@ -1,14 +1,18 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import Header from './components/Header';
-import AppContainer from './views/AppContainer';
-import Recording from './components/Recording';
-import './App.css';
+import RecorderComponent from './components/Recorder';
+import Visualizer from './components/Visualizer';
+import Counter from './components/Counter';
 
 const App = () => (
-  <AppContainer>
+  <Provider store={store}>
+    <Counter />
     <Header />
-    <Recording />
-  </AppContainer>
+    <RecorderComponent />
+    <Visualizer />
+  </Provider>
 );
 
 export default App;

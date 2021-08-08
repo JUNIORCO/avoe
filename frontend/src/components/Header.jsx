@@ -5,8 +5,8 @@ const text = require('../constants/text.json');
 
 const Header = () => (
   <div className="header">
-    <p className="WelcomeText">{text.welcome}</p>
-    <p className="DescriptionText">{text.description}</p>
+    <p className="welcome-text">{text.welcome}</p>
+    <p className="description-text">{text.description}</p>
   </div>
 );
 
