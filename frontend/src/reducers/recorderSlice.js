@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const Status = Object.freeze({
   IDLE: 'idle',
   START: 'start',
-  RECORDED: 'recorded',
+  STOP: 'stop',
   RESET: 'reset',
   ACCEPT: 'accept',
 });
@@ -22,8 +22,8 @@ export const recorderSlice = createSlice({
     start: (state) => {
       state.status = Status.START;
     },
-    recorded: (state) => {
-      state.status = Status.RECORDED;
+    stop: (state) => {
+      state.status = Status.STOP;
     },
     reset: (state) => {
       state.status = Status.RESET;
@@ -36,6 +36,6 @@ export const recorderSlice = createSlice({
 
 export const selectStatus = (state) => state.status;
 
-export const { idle, start, recorded, reset, accept } = recorderSlice.actions;
+export const { idle, start, stop, reset, accept } = recorderSlice.actions;
 
 export default recorderSlice.reducer;

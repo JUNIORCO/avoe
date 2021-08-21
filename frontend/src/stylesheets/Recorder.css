@@ -1,6 +1,4 @@
 #recording-container {
-  margin-top: 125px;
-
   /* Fade in animation */
   -webkit-animation: fadein 2s;
   animation: fadein 2s;

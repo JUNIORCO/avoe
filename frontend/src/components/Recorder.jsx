@@ -3,7 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 import {
   idle,
   start,
-  recorded,
+  stop,
   reset,
   accept,
   Status,
@@ -13,19 +13,55 @@ import micGrayScale from '../assets/microphone-grayscale.png';
 import micColored from '../assets/microphone-colored.png';
 
 const Recorder = (props) => {
+  const { status } = props;
+
   const [micSrc, setMicSrc] = useState(micGrayScale);
+  const [mediaRecorder, setMediaRecorder] = useState({});
+  const [audioURL, setAudioURL] = useState('');
+  const [timer, setTimer] = useState(0);
+  const [secondsRecording, setSecondsRecording] = useState(0);
+  const [mediaAvailable, setMediaAvailable] = useState(true);
+
   const dispatch = useDispatch();
 
+  const chunks = [];
+  const maxTime = 30;
+
   useEffect(() => {
-    switch (props.status) {
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          const recorder = new MediaRecorder(stream);
+
+          recorder.ondataavailable = (e) => chunks.push(e.data);
+
+          recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
+            setAudioURL(window.URL.createObjectURL(blob));
+            chunks.length = 0;
+          };
+
+          setMediaRecorder(recorder);
+        })
+        .catch(() => {
+          console.log('An error happened...');
+        });
+    } else {
+      setMediaAvailable(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    switch (status) {
       case Status.IDLE:
         handleIdleState();
         break;
       case Status.START:
         handleStartState();
         break;
-      case Status.RECORDED:
-        handleRecordedState();
+      case Status.STOP:
+        handleStopState();
         break;
       case Status.RESET:
         handleResetState();
@@ -33,21 +69,31 @@ const Recorder = (props) => {
       case Status.ACCEPT:
         handleAcceptState();
     }
-  }, [props.status]);
+  }, [status]);
+
+  const countDown = () => {
+    setSecondsRecording(secondsRecording + 1);
+  };
+
+  const startTimer = () => {
+    setTimer(setInterval(countDown, 1000));
+  };
 
   const handleIdleState = () => {
-    console.log('Idling');
     setMicSrc(micGrayScale);
   };
 
   const handleStartState = () => {
-    console.log('User started recording');
     setMicSrc(micColored);
+    startTimer();
+    mediaRecorder.start();
   };
 
-  const handleRecordedState = () => {
-    console.log('User finished recording');
+  const handleStopState = () => {
     setMicSrc(micGrayScale);
+    clearInterval(timer);
+    setSecondsRecording(0);
+    mediaRecorder.stop();
   };
 
   const handleResetState = () => {
@@ -64,16 +110,23 @@ const Recorder = (props) => {
         id="recording-btn"
         className="pulsing"
         type="button"
-        disabled={props.status === Status.RECORDED}
+        disabled={status === Status.STOP}
         onMouseDown={() => {
           dispatch(start());
         }}
         onMouseUp={() => {
-          dispatch(recorded());
+          dispatch(stop());
         }}
       >
-        <img id="recording-logo" src={micSrc} alt="logo" />
+        <img id="recording-logo" src={micSrc} alt="recording-logo" />
       </button>
+      {audioURL !== '' ? (
+        <div>
+          <audio controls>
+            <source src={audioURL} />
+          </audio>
+        </div>
+      ) : null}
     </div>
   );
 };

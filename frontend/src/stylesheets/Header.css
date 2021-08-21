@@ -1,8 +1,4 @@
-.header {
-  margin-top: 75px;
-}
-
-.welcome-text, .description-text {
+#welcome-text, #description-text {
   color: white;
   font-size: x-large;
 
@@ -10,7 +6,7 @@
   animation: fadein 2s;
 }
 
-.description-text {
+#description-text {
   opacity: 0;
   animation-delay: 1s;
   animation-fill-mode: forwards;
@@ -24,13 +20,3 @@
     opacity: 1;
   }
 }
-
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
