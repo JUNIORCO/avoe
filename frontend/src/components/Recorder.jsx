@@ -4,20 +4,20 @@ import {
   idle,
   start,
   stop,
-  reset,
-  accept,
+  retry,
+  next,
   Status,
 } from '../reducers/recorderSlice';
+import { setAudioURL } from '../reducers/audioURLSlice';
 import '../stylesheets/Recorder.css';
-import micGrayScale from '../assets/microphone-grayscale.png';
-import micColored from '../assets/microphone-colored.png';
+import micPng from '../assets/microphone.png';
+import micGif from '../assets/microphone.gif';
 
 const Recorder = (props) => {
   const { status } = props;
 
-  const [micSrc, setMicSrc] = useState(micGrayScale);
-  const [mediaRecorder, setMediaRecorder] = useState({});
-  const [audioURL, setAudioURL] = useState('');
+  const [micSrc, setMicSrc] = useState(micGif);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
   const [timer, setTimer] = useState(0);
   const [secondsRecording, setSecondsRecording] = useState(0);
   const [mediaAvailable, setMediaAvailable] = useState(true);
@@ -38,7 +38,8 @@ const Recorder = (props) => {
 
           recorder.onstop = () => {
             const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
-            setAudioURL(window.URL.createObjectURL(blob));
+            const audioURL = window.URL.createObjectURL(blob);
+            dispatch(setAudioURL(audioURL));
             chunks.length = 0;
           };
 
@@ -63,11 +64,11 @@ const Recorder = (props) => {
       case Status.STOP:
         handleStopState();
         break;
-      case Status.RESET:
-        handleResetState();
+      case Status.RETRY:
+        handleRetryState();
         break;
-      case Status.ACCEPT:
-        handleAcceptState();
+      case Status.NEXT:
+        handleNextState();
     }
   }, [status]);
 
@@ -80,27 +81,28 @@ const Recorder = (props) => {
   };
 
   const handleIdleState = () => {
-    setMicSrc(micGrayScale);
+    setMicSrc(micGif);
   };
 
   const handleStartState = () => {
-    setMicSrc(micColored);
+    setMicSrc(micPng);
     startTimer();
     mediaRecorder.start();
   };
 
   const handleStopState = () => {
-    setMicSrc(micGrayScale);
+    setMicSrc(micPng);
     clearInterval(timer);
     setSecondsRecording(0);
     mediaRecorder.stop();
   };
 
-  const handleResetState = () => {
-    console.log('User reset recording');
+  const handleRetryState = () => {
+    dispatch(setAudioURL(''));
+    dispatch(idle());
   };
 
-  const handleAcceptState = () => {
+  const handleNextState = () => {
     console.log('User accepted recording');
   };
 
@@ -120,13 +122,6 @@ const Recorder = (props) => {
       >
         <img id="recording-logo" src={micSrc} alt="recording-logo" />
       </button>
-      {audioURL !== '' ? (
-        <div>
-          <audio controls>
-            <source src={audioURL} />
-          </audio>
-        </div>
-      ) : null}
     </section>
   );
 };

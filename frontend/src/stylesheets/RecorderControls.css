@@ -1,0 +1,33 @@
+#recorder-controls {
+  margin-top: 50px;
+}
+
+audio {
+  filter: invert(1);
+}
+
+#decision-container {
+  margin-top: 25px;
+}
+
+#reject-btn {
+  background-color: black;
+  color: white;
+  border-color: #F3505F;
+}
+
+#accept-btn {
+  background-image: linear-gradient(to right, #15C0E8 0%, #B676EC 51%, #F3505F 100%);
+}
+
+.decision-btn {
+  font-size: large;
+  padding: 20px 25px;
+  border-radius: 20px;
+  margin: 0 20px;
+  outline: none;
+}
+
+.icons {
+  vertical-align: middle;
+}

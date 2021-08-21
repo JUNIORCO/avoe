@@ -1,4 +1,6 @@
 {
   "welcome": "Welcome to AVOE.",
-  "description": "Start recording"
+  "description": "Press & hold to start recording",
+  "nextBtn": "Next",
+  "retryBtn": "Retry"
 }

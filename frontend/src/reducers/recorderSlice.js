@@ -4,8 +4,8 @@ export const Status = Object.freeze({
   IDLE: 'idle',
   START: 'start',
   STOP: 'stop',
-  RESET: 'reset',
-  ACCEPT: 'accept',
+  RETRY: 'retry',
+  NEXT: 'next',
 });
 
 const initialState = {
@@ -25,17 +25,17 @@ export const recorderSlice = createSlice({
     stop: (state) => {
       state.status = Status.STOP;
     },
-    reset: (state) => {
-      state.status = Status.RESET;
+    retry: (state) => {
+      state.status = Status.RETRY;
     },
-    accept: (state) => {
-      state.status = Status.ACCEPT;
+    next: (state) => {
+      state.status = Status.NEXT;
     },
   },
 });
 
 export const selectStatus = (state) => state.status;
 
-export const { idle, start, stop, reset, accept } = recorderSlice.actions;
+export const { idle, start, stop, retry, next } = recorderSlice.actions;
 
 export default recorderSlice.reducer;
