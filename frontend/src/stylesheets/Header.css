@@ -1,3 +1,7 @@
+#header {
+  margin-top: 125px;
+}
+
 #welcome-text, #description-text {
   color: white;
   font-size: x-large;

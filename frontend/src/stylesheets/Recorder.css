@@ -1,4 +1,4 @@
-#recording-container {
+#recording {
   /* Fade in animation */
   -webkit-animation: fadein 2s;
   animation: fadein 2s;
@@ -10,6 +10,8 @@
   position: fixed;
   transform: translate(-50%, -50%);
   left: 50%;
+
+  margin-top: 100px;
 }
 
 #recording-logo {

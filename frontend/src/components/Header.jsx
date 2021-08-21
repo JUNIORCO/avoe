@@ -4,7 +4,7 @@ import '../stylesheets/Header.css';
 const text = require('../constants/text.json');
 
 const Header = () => (
-  <header>
+  <header id="header">
     <p id="welcome-text">{text.welcome}</p>
     <p id="description-text">{text.description}</p>
   </header>

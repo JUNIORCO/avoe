@@ -105,7 +105,7 @@ const Recorder = (props) => {
   };
 
   return (
-    <div id="recording-container">
+    <section id="recording">
       <button
         id="recording-btn"
         className="pulsing"
@@ -127,7 +127,7 @@ const Recorder = (props) => {
           </audio>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };
 
