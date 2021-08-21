@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import {
-  idle,
-  start,
-  stop,
-  retry,
-  next,
-  Status,
-} from '../reducers/recorderSlice';
-import { setAudioURL } from '../reducers/audioURLSlice';
+  AppStates,
+  HighLevelStates,
+  recorderIdle,
+  recorderStart,
+  recorderStop,
+  setAudioURL,
+  setHighLevelState,
+} from '../reducers/applicationSlice';
 import '../stylesheets/Recorder.css';
 import micPng from '../assets/microphone.png';
 import micGif from '../assets/microphone.gif';
 
 const Recorder = (props) => {
-  const { status } = props;
-
+  const { appState } = props;
   const [micSrc, setMicSrc] = useState(micGif);
   const [mediaRecorder, setMediaRecorder] = useState(null);
-  const [timer, setTimer] = useState(0);
-  const [secondsRecording, setSecondsRecording] = useState(0);
   const [mediaAvailable, setMediaAvailable] = useState(true);
-  const [nextState, setNextState] = useState(false);
-
   const dispatch = useDispatch();
-
   const chunks = [];
-  const maxTime = 30;
 
   useEffect(() => {
     if (navigator.mediaDevices.getUserMedia) {
@@ -47,7 +40,7 @@ const Recorder = (props) => {
           setMediaRecorder(recorder);
         })
         .catch(() => {
-          console.log('An error happened...');
+          setMediaAvailable(false);
         });
     } else {
       setMediaAvailable(false);
@@ -55,31 +48,23 @@ const Recorder = (props) => {
   }, []);
 
   useEffect(() => {
-    switch (status) {
-      case Status.IDLE:
+    switch (appState) {
+      case AppStates.RECORDER_IDLE:
         handleIdleState();
         break;
-      case Status.START:
+      case AppStates.RECORDER_START:
         handleStartState();
         break;
-      case Status.STOP:
+      case AppStates.RECORDER_STOP:
         handleStopState();
         break;
-      case Status.RETRY:
+      case AppStates.RECORDER_RETRY:
         handleRetryState();
         break;
-      case Status.NEXT:
-        handleNextState();
+      case AppStates.STYLE_SELECTION_START:
+        handleToStyleSelectionState();
     }
-  }, [status]);
-
-  const countDown = () => {
-    setSecondsRecording(secondsRecording + 1);
-  };
-
-  const startTimer = () => {
-    setTimer(setInterval(countDown, 1000));
-  };
+  }, [appState]);
 
   const handleIdleState = () => {
     setMicSrc(micGif);
@@ -87,39 +72,35 @@ const Recorder = (props) => {
 
   const handleStartState = () => {
     setMicSrc(micPng);
-    startTimer();
     mediaRecorder.start();
   };
 
   const handleStopState = () => {
     setMicSrc(micPng);
-    clearInterval(timer);
-    setSecondsRecording(0);
     mediaRecorder.stop();
   };
 
   const handleRetryState = () => {
-    dispatch(setAudioURL(''));
-    dispatch(idle());
+    dispatch(setAudioURL(null));
+    dispatch(recorderIdle());
   };
 
-  const handleNextState = () => {
-    console.log('Hello world');
-    setNextState(true);
+  const handleToStyleSelectionState = () => {
+    dispatch(setHighLevelState(HighLevelStates.STYLE_SELECTION));
   };
 
   return (
     <section id="recording">
-      {!nextState ? (
+      {mediaAvailable ? (
         <button
           id="recording-btn"
           type="button"
-          disabled={status === Status.STOP}
+          disabled={appState === AppStates.RECORDER_STOP}
           onMouseDown={() => {
-            dispatch(start());
+            dispatch(recorderStart());
           }}
           onMouseUp={() => {
-            dispatch(stop());
+            dispatch(recorderStop());
           }}
         >
           <img id="recording-logo" src={micSrc} alt="recording-logo" />
@@ -129,6 +110,8 @@ const Recorder = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ status: state.recorder.status });
+const mapStateToProps = (state) => ({
+  appState: state.application.appState,
+});
 
 export default connect(mapStateToProps)(Recorder);

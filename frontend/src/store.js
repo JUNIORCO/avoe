@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import recorderReducer from './reducers/recorderSlice';
-import audioURLReducer from './reducers/audioURLSlice';
+import applicationReducer from './reducers/applicationSlice';
 
 const store = configureStore({
   reducer: {
-    recorder: recorderReducer,
-    audioURL: audioURLReducer,
+    application: applicationReducer,
   },
 });
 

@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { connect, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import {
+  recorderRetry,
+  styleSelectionStart,
+} from '../reducers/applicationSlice';
 import '../stylesheets/RecorderControls.css';
-import { retry, next } from '../reducers/recorderSlice';
 
 const text = require('../constants/text.json');
 
@@ -31,12 +34,11 @@ const RetryButton = withStyles((theme) => ({
 
 const RecorderControls = (props) => {
   const { audioURL } = props;
-
   const dispatch = useDispatch();
 
   return (
     <section id="recorder-controls">
-      {audioURL !== '' ? (
+      {audioURL !== null ? (
         <>
           <Box mb={3} display="block">
             <audio controls>
@@ -50,7 +52,7 @@ const RecorderControls = (props) => {
               size="large"
               startIcon={<CancelIcon />}
               onClick={() => {
-                dispatch(retry());
+                dispatch(recorderRetry());
               }}
             >
               {text.retryBtn}
@@ -63,7 +65,7 @@ const RecorderControls = (props) => {
               size="large"
               endIcon={<CheckCircleIcon />}
               onClick={() => {
-                dispatch(next());
+                dispatch(styleSelectionStart());
               }}
             >
               {text.nextBtn}
@@ -75,6 +77,6 @@ const RecorderControls = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ audioURL: state.audioURL.audioURL });
+const mapStateToProps = (state) => ({ audioURL: state.application.audioURL });
 
 export default connect(mapStateToProps)(RecorderControls);
