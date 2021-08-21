@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { HighLevelStates } from './reducers/applicationSlice';
 import Header from './components/Header';
 import Recorder from './components/Recorder';
 import RecorderControls from './components/RecorderControls';
-import { HighLevelStates } from './reducers/applicationSlice';
+import StyleSelector from './components/StyleSelector';
 
 const App = (props) => {
   const { highLevelState } = props;
@@ -19,6 +20,7 @@ const App = (props) => {
       ) : null}
       {highLevelState === HighLevelStates.STYLE_SELECTION ? (
         <>
+          <StyleSelector />
         </>
       ) : null}
     </>

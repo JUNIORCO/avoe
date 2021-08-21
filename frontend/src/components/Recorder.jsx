@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import {
   AppStates,
+  firstOpening,
   HighLevelStates,
   recorderIdle,
   recorderStart,
@@ -49,24 +50,27 @@ const Recorder = (props) => {
 
   useEffect(() => {
     switch (appState) {
-      case AppStates.RECORDER_IDLE:
-        handleIdleState();
-        break;
+      case AppStates.FIRST_OPENING:
+        handleFirstOpening();
+        return;
       case AppStates.RECORDER_START:
         handleStartState();
-        break;
+        return;
       case AppStates.RECORDER_STOP:
         handleStopState();
-        break;
+        return;
       case AppStates.RECORDER_RETRY:
         handleRetryState();
-        break;
+        return;
       case AppStates.STYLE_SELECTION_START:
         handleToStyleSelectionState();
+        return;
+      default:
+        return;
     }
   }, [appState]);
 
-  const handleIdleState = () => {
+  const handleFirstOpening = () => {
     setMicSrc(micGif);
   };
 
@@ -78,11 +82,12 @@ const Recorder = (props) => {
   const handleStopState = () => {
     setMicSrc(micPng);
     mediaRecorder.stop();
+    dispatch(recorderIdle());
   };
 
   const handleRetryState = () => {
     dispatch(setAudioURL(null));
-    dispatch(recorderIdle());
+    dispatch(firstOpening());
   };
 
   const handleToStyleSelectionState = () => {
@@ -95,7 +100,7 @@ const Recorder = (props) => {
         <button
           id="recording-btn"
           type="button"
-          disabled={appState === AppStates.RECORDER_STOP}
+          disabled={appState === AppStates.RECORDER_IDLE}
           onMouseDown={() => {
             dispatch(recorderStart());
           }}

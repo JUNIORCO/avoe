@@ -1,11 +1,4 @@
 #recording {
-  /* Fade in animation */
-  -webkit-animation: fadein 2s;
-  animation: fadein 2s;
-  opacity: 0;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-
   margin-top: 50px;
 }
 

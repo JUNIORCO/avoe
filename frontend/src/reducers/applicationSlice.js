@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const AppStates = Object.freeze({
-  RECORDER_IDLE: 'recorder-idle',
+  FIRST_OPENING: 'first-opening-of-avoe',
   RECORDER_START: 'recorder-start',
   RECORDER_STOP: 'recorder-stop',
   RECORDER_RETRY: 'recorder-retry',
+  RECORDER_IDLE: 'recorder-idle',
   STYLE_SELECTION_START: 'style-selection-start',
   STYLE_SELECTED: 'style-selected',
   STYLE_APPLIED: 'style-applied',
@@ -17,7 +18,7 @@ export const HighLevelStates = Object.freeze({
 
 const initialState = {
   highLevelState: HighLevelStates.RECORDER,
-  appState: AppStates.RECORDER_IDLE,
+  appState: AppStates.FIRST_OPENING,
   audioURL: null,
 };
 
@@ -31,8 +32,8 @@ export const applicationSlice = createSlice({
     setAudioURL: (state, action) => {
       state.audioURL = action.payload;
     },
-    recorderIdle: (state) => {
-      state.appState = AppStates.RECORDER_IDLE;
+    firstOpening: (state, action) => {
+      state.appState = AppStates.FIRST_OPENING;
     },
     recorderStart: (state) => {
       state.appState = AppStates.RECORDER_START;
@@ -42,6 +43,9 @@ export const applicationSlice = createSlice({
     },
     recorderRetry: (state) => {
       state.appState = AppStates.RECORDER_RETRY;
+    },
+    recorderIdle: (state) => {
+      state.appState = AppStates.RECORDER_IDLE;
     },
     styleSelectionStart: (state) => {
       state.appState = AppStates.STYLE_SELECTION_START;
@@ -58,6 +62,7 @@ export const applicationSlice = createSlice({
 export const {
   setHighLevelState,
   setAudioURL,
+  firstOpening,
   recorderIdle,
   recorderStart,
   recorderStop,

@@ -13,7 +13,7 @@ import '../stylesheets/RecorderControls.css';
 
 const text = require('../constants/text.json');
 
-const NextButton = withStyles((theme) => ({
+const NextButton = withStyles(() => ({
   root: {
     backgroundColor: '#15C0E8',
     '&:hover': {
@@ -22,7 +22,7 @@ const NextButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const RetryButton = withStyles((theme) => ({
+const RetryButton = withStyles(() => ({
   root: {
     color: '#F3505F',
     borderColor: '#F3505F',
