@@ -21,6 +21,7 @@ const Recorder = (props) => {
   const [timer, setTimer] = useState(0);
   const [secondsRecording, setSecondsRecording] = useState(0);
   const [mediaAvailable, setMediaAvailable] = useState(true);
+  const [nextState, setNextState] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -103,25 +104,27 @@ const Recorder = (props) => {
   };
 
   const handleNextState = () => {
-    console.log('User accepted recording');
+    console.log('Hello world');
+    setNextState(true);
   };
 
   return (
     <section id="recording">
-      <button
-        id="recording-btn"
-        className="pulsing"
-        type="button"
-        disabled={status === Status.STOP}
-        onMouseDown={() => {
-          dispatch(start());
-        }}
-        onMouseUp={() => {
-          dispatch(stop());
-        }}
-      >
-        <img id="recording-logo" src={micSrc} alt="recording-logo" />
-      </button>
+      {!nextState ? (
+        <button
+          id="recording-btn"
+          type="button"
+          disabled={status === Status.STOP}
+          onMouseDown={() => {
+            dispatch(start());
+          }}
+          onMouseUp={() => {
+            dispatch(stop());
+          }}
+        >
+          <img id="recording-logo" src={micSrc} alt="recording-logo" />
+        </button>
+      ) : null}
     </section>
   );
 };
