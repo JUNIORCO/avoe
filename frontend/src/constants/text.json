@@ -2,5 +2,7 @@
   "welcome": "Welcome to AVOE.",
   "description": "Press & hold to start recording",
   "nextBtn": "Next",
-  "retryBtn": "Retry"
+  "retryBtn": "Retry",
+  "backBtn": "Back",
+  "chooseStyle": "Choose your style"
 }
