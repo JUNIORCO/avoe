@@ -42,7 +42,7 @@ const RecorderControls = (props) => {
         <>
           <Box mb={3} display="block">
             <audio controls>
-              <source src={audioURL} />
+              <source src={audioURL} type="audio/mp3" />
             </audio>
           </Box>
           <Box m={2} display="inline">

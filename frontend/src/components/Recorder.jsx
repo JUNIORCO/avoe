@@ -25,8 +25,12 @@ const Recorder = (props) => {
 
   useEffect(() => {
     if (navigator.mediaDevices.getUserMedia) {
+      const options = {
+        audio: true,
+        video: false,
+      };
       navigator.mediaDevices
-        .getUserMedia({ audio: true })
+        .getUserMedia(options)
         .then((stream) => {
           const recorder = new MediaRecorder(stream);
 
@@ -37,6 +41,7 @@ const Recorder = (props) => {
             const audioURL = window.URL.createObjectURL(blob);
             dispatch(setAudioURL(audioURL));
             chunks.length = 0;
+            stream.getTracks().forEach(track => track.stop());
           };
 
           setMediaRecorder(recorder);
