@@ -23,7 +23,6 @@ const Recorder = (props) => {
   const [imgSrc, setImgSrc] = useState(micImg);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [mediaAvailable, setMediaAvailable] = useState(true);
-  const [seconds, setSeconds] = useState(0);
   const dispatch = useDispatch();
   const chunks = [];
 
@@ -85,7 +84,6 @@ const Recorder = (props) => {
   const handleStartState = () => {
     setImgSrc(stopImg);
     mediaRecorder.start();
-    startStopwatch();
   };
 
   const handleStopState = () => {
@@ -105,14 +103,6 @@ const Recorder = (props) => {
   const handleToStyleSelectionState = () => {
     dispatch(setHighLevelState(HighLevelStates.STYLE_SELECTION));
   };
-
-  const startStopwatch = () => {
-    setInterval(() => {
-      setSeconds(seconds + 1);
-    }, 1000);
-  };
-
-  useEffect(startStopwatch, [seconds]);
 
   return (
     <section id="recording">
