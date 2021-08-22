@@ -1,6 +1,8 @@
 {
-  "welcome": "Welcome to AVOE.",
-  "description": "Press & hold to start recording",
+  "header": "avoe",
+  "startRecording": "Tap to start recording",
+  "endRecording": "Tap to end recording",
+  "doneRecording": "Done",
   "nextBtn": "Next",
   "retryBtn": "Retry",
   "backBtn": "Back",

@@ -108,12 +108,10 @@ const Recorder = (props) => {
           id="recording-btn"
           type="button"
           disabled={appState === AppStates.RECORDER_IDLE}
-          onMouseDown={(e) => {
-            dispatch(recorderStart());
-            e.preventDefault();
-          }}
-          onMouseUp={() => {
-            dispatch(recorderStop());
+          onClick={() => {
+            appState === AppStates.FIRST_OPENING
+              ? dispatch(recorderStart())
+              : dispatch(recorderStop());
           }}
         >
           <img id="recording-logo" src={micSrc} alt="recording-logo" />
