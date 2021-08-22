@@ -12,7 +12,7 @@ import {
 } from '../reducers/applicationSlice';
 import '../stylesheets/Recorder.css';
 import micPng from '../assets/microphone.png';
-import micGif from '../assets/microphone.gif';
+import micGif from '../assets/microphone-gif.gif';
 
 const Recorder = (props) => {
   const { appState } = props;

@@ -1,23 +1,16 @@
-import React from 'react';
-import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  makeStyles,
-  withStyles,
-} from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Grid, withStyles } from '@material-ui/core';
 import {
   HighLevelStates,
-  recorderIdle,
+  recorderIdle, setAudioURL,
   setHighLevelState,
+  styleSelected
 } from '../reducers/applicationSlice';
 import { useDispatch } from 'react-redux';
+import CharacterIcon from './CharacterIcon';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { green } from '@material-ui/core/colors';
 import '../stylesheets/StyleSelector.css';
-import lolaImg from '../assets/lola.jpeg';
+import { Characters } from '../constants/characters';
 
 const text = require('../constants/text.json');
 
@@ -31,25 +24,14 @@ const BackButton = withStyles(() => ({
   },
 }))(Button);
 
-const useStyles = makeStyles((theme) => ({
-  large: {
-    width: theme.spacing(15),
-    height: theme.spacing(15),
-  },
-  padding: {
-    padding: 0,
-  },
-  badge: {
-    fill: green[600],
-    fontSize: 40,
-  },
-}));
-
 const StyleSelector = () => {
+  const [characterSelected, setCharacterSelected] = useState(null);
   const dispatch = useDispatch();
-  const classes = useStyles();
 
-  const handleClick = () => {};
+  const handleClick = (character) => {
+    dispatch(styleSelected());
+    setCharacterSelected(character);
+  };
 
   return (
     <section>
@@ -72,29 +54,15 @@ const StyleSelector = () => {
       </Box>
       <Box mt={3}>
         <Grid container spacing={2}>
-          <Grid container item xs={12} spacing={2} justify="center">
-            <Grid item onClick={handleClick()}>
-              <IconButton className={classes.padding}>
-                <Avatar alt="lola" src={lolaImg} className={classes.large} />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton className={classes.padding}>
-                <Avatar alt="lola" src={lolaImg} className={classes.large} />
-              </IconButton>
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} spacing={2} justify="center">
-            <Grid item>
-              <IconButton className={classes.padding}>
-                <Avatar alt="lola" src={lolaImg} className={classes.large} />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton className={classes.padding}>
-                <Avatar alt="lola" src={lolaImg} className={classes.large} />
-              </IconButton>
-            </Grid>
+          <Grid container item xs={12} spacing={2} justifyContent="center">
+            {Characters.map((character) => (
+              <CharacterIcon
+                id={character.id}
+                image={character.image}
+                selected={characterSelected === character.id}
+                handleClick={handleClick}
+              />
+            ))}
           </Grid>
         </Grid>
       </Box>
