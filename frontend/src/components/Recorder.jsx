@@ -62,6 +62,9 @@ const Recorder = (props) => {
       case AppStates.RECORDER_RETRY:
         handleRetryState();
         return;
+      case AppStates.RECORDER_IDLE:
+        handleIdleState();
+        return;
       case AppStates.STYLE_SELECTION_START:
         handleToStyleSelectionState();
         return;
@@ -88,6 +91,10 @@ const Recorder = (props) => {
   const handleRetryState = () => {
     dispatch(setAudioURL(null));
     dispatch(firstOpening());
+  };
+
+  const handleIdleState = () => {
+    setMicSrc(micPng);
   };
 
   const handleToStyleSelectionState = () => {
