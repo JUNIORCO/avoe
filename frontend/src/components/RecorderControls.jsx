@@ -1,14 +1,14 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { connect, useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {
   recorderRetry,
   styleSelectionStart,
 } from '../reducers/applicationSlice';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import '../stylesheets/RecorderControls.css';
 
 const text = require('../constants/text.json');

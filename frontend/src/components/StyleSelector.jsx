@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Avatar,
-  Badge,
   Box,
   Button,
   Grid,
@@ -16,7 +15,7 @@ import {
 } from '../reducers/applicationSlice';
 import { useDispatch } from 'react-redux';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import CheckCircleSharpIcon from '@material-ui/icons/CheckCircleSharp';
+import { green } from '@material-ui/core/colors';
 import '../stylesheets/StyleSelector.css';
 import lolaImg from '../assets/lola.jpeg';
 
@@ -41,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   badge: {
-    fill: 'green',
+    fill: green[600],
     fontSize: 40,
   },
 }));
@@ -49,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
 const StyleSelector = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const handleClick = () => {};
 
   return (
     <section>
@@ -72,20 +73,9 @@ const StyleSelector = () => {
       <Box mt={3}>
         <Grid container spacing={2}>
           <Grid container item xs={12} spacing={2} justify="center">
-            <Grid item>
+            <Grid item onClick={handleClick()}>
               <IconButton className={classes.padding}>
-                <Badge
-                  overlap="circular"
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  badgeContent={
-                    <CheckCircleSharpIcon className={classes.badge} />
-                  }
-                >
-                  <Avatar alt="lola" src={lolaImg} className={classes.large} />
-                </Badge>
+                <Avatar alt="lola" src={lolaImg} className={classes.large} />
               </IconButton>
             </Grid>
             <Grid item>
