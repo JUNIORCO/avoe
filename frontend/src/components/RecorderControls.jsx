@@ -8,7 +8,7 @@ import {
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import '../stylesheets/RecorderControls.css';
 
 const text = require('../constants/text.json');
@@ -62,7 +62,7 @@ const RecorderControls = (props) => {
             <NextButton
               variant="contained"
               size="large"
-              endIcon={<CheckCircleIcon />}
+              endIcon={<ArrowForwardIosIcon />}
               onClick={() => {
                 dispatch(styleSelectionStart());
               }}

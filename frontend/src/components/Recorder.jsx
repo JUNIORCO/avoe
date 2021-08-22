@@ -11,14 +11,19 @@ import {
   setHighLevelState,
 } from '../reducers/applicationSlice';
 import '../stylesheets/Recorder.css';
-import micPng from '../assets/microphone.png';
-import micGif from '../assets/microphone-gif.gif';
+import micImg from '../assets/microphone.png';
+import stopImg from '../assets/stop.png';
+import checkImg from '../assets/check.png';
+
+const getUserMedia = require('get-user-media-promise');
+const MicrophoneStream = require('microphone-stream').default;
 
 const Recorder = (props) => {
   const { appState } = props;
-  const [micSrc, setMicSrc] = useState(micGif);
+  const [imgSrc, setImgSrc] = useState(micImg);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [mediaAvailable, setMediaAvailable] = useState(true);
+  const [seconds, setSeconds] = useState(0);
   const dispatch = useDispatch();
   const chunks = [];
 
@@ -74,16 +79,16 @@ const Recorder = (props) => {
   }, [appState]);
 
   const handleFirstOpening = () => {
-    setMicSrc(micGif);
+    setImgSrc(micImg);
   };
 
   const handleStartState = () => {
-    setMicSrc(micPng);
+    setImgSrc(stopImg);
     mediaRecorder.start();
+    startStopwatch();
   };
 
   const handleStopState = () => {
-    setMicSrc(micPng);
     mediaRecorder.stop();
     dispatch(recorderIdle());
   };
@@ -94,12 +99,20 @@ const Recorder = (props) => {
   };
 
   const handleIdleState = () => {
-    setMicSrc(micPng);
+    setImgSrc(checkImg);
   };
 
   const handleToStyleSelectionState = () => {
     dispatch(setHighLevelState(HighLevelStates.STYLE_SELECTION));
   };
+
+  const startStopwatch = () => {
+    setInterval(() => {
+      setSeconds(seconds + 1);
+    }, 1000);
+  };
+
+  useEffect(startStopwatch, [seconds]);
 
   return (
     <section id="recording">
@@ -114,7 +127,7 @@ const Recorder = (props) => {
               : dispatch(recorderStop());
           }}
         >
-          <img id="recording-logo" src={micSrc} alt="recording-logo" />
+          <img id="recording-logo" src={imgSrc} alt="recording-logo" />
         </button>
       ) : null}
     </section>

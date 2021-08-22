@@ -16,3 +16,7 @@
 #recording-btn {
   all: unset;
 }
+
+#recording p {
+  color: white;
+}
