@@ -1,10 +1,10 @@
 # Stage 0 - Build Frontend Assets
 FROM node:12.16.3-alpine as build
 
-WORKDIR /app/frontend
-COPY package*.json ./frontend/
-RUN npm install --silent --production
-COPY . .
+WORKDIR /app/frontend/
+COPY package*.json /app/frontend/
+RUN npm install
+COPY . /app/frontend/
 RUN npm run build
 
 # Stage 1 - Serve Frontend Assets
