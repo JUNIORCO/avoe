@@ -15,9 +15,6 @@ import micImg from '../assets/microphone.png';
 import stopImg from '../assets/stop.png';
 import checkImg from '../assets/check.png';
 
-const getUserMedia = require('get-user-media-promise');
-const MicrophoneStream = require('microphone-stream').default;
-
 const Recorder = (props) => {
   const { appState } = props;
   const [imgSrc, setImgSrc] = useState(micImg);
