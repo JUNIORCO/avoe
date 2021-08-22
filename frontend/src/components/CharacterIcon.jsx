@@ -23,7 +23,7 @@ const CharacterIcon = (props) => {
       <IconButton
         id={id}
         disableRipple
-        className={classes.iconBtn + ' ' + (selected ? classes.boxShadow : '')}
+        className={`${classes.iconBtn} ${selected ? classes.boxShadow : ''}`}
       >
         <Avatar src={image} alt={id} className={classes.large} />
       </IconButton>

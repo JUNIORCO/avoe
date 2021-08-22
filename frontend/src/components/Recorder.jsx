@@ -121,8 +121,6 @@ const Recorder = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  appState: state.application.appState,
-});
+const mapStateToProps = (state) => ({ appState: state.application.appState });
 
 export default connect(mapStateToProps)(Recorder);

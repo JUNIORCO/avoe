@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, withStyles } from '@material-ui/core';
 import {
+  AppStates,
   HighLevelStates,
-  recorderIdle, setAudioURL,
+  recorderIdle,
   setHighLevelState,
-  styleSelected
+  styleApplied,
+  styleSelected,
 } from '../reducers/applicationSlice';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import CharacterIcon from './CharacterIcon';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import '../stylesheets/StyleSelector.css';
 import { Characters } from '../constants/characters';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const text = require('../constants/text.json');
 
@@ -24,9 +27,25 @@ const BackButton = withStyles(() => ({
   },
 }))(Button);
 
-const StyleSelector = () => {
+const NextButton = withStyles(() => ({
+  root: {
+    backgroundColor: '#15C0E8',
+    '&:hover': {
+      backgroundColor: '#1399E6',
+    },
+  },
+}))(Button);
+
+const StyleSelector = (props) => {
+  const { appState } = props;
   const [characterSelected, setCharacterSelected] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    switch (appState) {
+      case AppStates.STYLE_SELECTED:
+    }
+  }, [appState]);
 
   const handleClick = (character) => {
     dispatch(styleSelected());
@@ -66,8 +85,24 @@ const StyleSelector = () => {
           </Grid>
         </Grid>
       </Box>
+      {appState === AppStates.STYLE_SELECTED ? (
+        <Box mt={5}>
+          <NextButton
+            variant="contained"
+            size="large"
+            endIcon={<CloudUploadIcon />}
+            onClick={() => {
+              dispatch(styleApplied());
+            }}
+          >
+            {`${text.applyBtn} ${characterSelected}`}
+          </NextButton>
+        </Box>
+      ) : null}
     </section>
   );
 };
 
-export default StyleSelector;
+const mapStateToProps = (state) => ({ appState: state.application.appState });
+
+export default connect(mapStateToProps)(StyleSelector);

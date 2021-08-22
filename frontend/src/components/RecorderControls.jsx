@@ -61,7 +61,6 @@ const RecorderControls = (props) => {
           <Box m={2} display="inline">
             <NextButton
               variant="contained"
-              color="secondary"
               size="large"
               endIcon={<CheckCircleIcon />}
               onClick={() => {
