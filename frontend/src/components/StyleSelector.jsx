@@ -43,7 +43,8 @@ const StyleSelector = (props) => {
 
   useEffect(() => {
     switch (appState) {
-      case AppStates.STYLE_SELECTED:
+      case AppStates.STYLE_APPLIED:
+        handleCharacterSubmit();
     }
   }, [appState]);
 
@@ -51,6 +52,10 @@ const StyleSelector = (props) => {
     dispatch(styleSelected());
     setCharacterSelected(character);
   };
+
+  const handleCharacterSubmit = () => {
+
+  }
 
   return (
     <section>

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   boxShadow: {
-    boxShadow: '0px 0px 25px 3px #f3505f',
+    boxShadow: '0px 0px 25px 3px #b676ec',
   },
 }));
 
