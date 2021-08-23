@@ -1,7 +1,7 @@
 import lolaImg from '../assets/lola.jpeg';
 import peterImg from '../assets/peter.jpeg';
-import rickImg from '../assets/rick.png';
-import mauryImg from '../assets/maury.png';
+import rickImg from '../assets/rick.jpg';
+import mauryImg from '../assets/maury.jpg';
 
 export const CharacterIds = Object.freeze({
   lola: 'lola',
