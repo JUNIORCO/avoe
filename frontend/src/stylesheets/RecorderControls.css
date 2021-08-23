@@ -2,10 +2,6 @@
   margin-top: 50px;
 }
 
-audio {
-  filter: invert(1);
-}
-
 #decision-container {
   margin-top: 25px;
 }
