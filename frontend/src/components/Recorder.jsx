@@ -24,37 +24,6 @@ const Recorder = (props) => {
   const chunks = [];
 
   useEffect(() => {
-    if (navigator.mediaDevices.getUserMedia) {
-      const options = {
-        audio: true,
-        video: false,
-      };
-      navigator.mediaDevices
-        .getUserMedia(options)
-        .then((stream) => {
-          const recorder = new MediaRecorder(stream);
-
-          recorder.ondataavailable = (e) => chunks.push(e.data);
-
-          recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
-            const audioURL = window.URL.createObjectURL(blob);
-            dispatch(setAudioURL(audioURL));
-            chunks.length = 0;
-            stream.getTracks().forEach(track => track.stop());
-          };
-
-          setMediaRecorder(recorder);
-        })
-        .catch(() => {
-          setMediaAvailable(false);
-        });
-    } else {
-      setMediaAvailable(false);
-    }
-  }, []);
-
-  useEffect(() => {
     switch (appState) {
       case AppStates.FIRST_OPENING:
         handleFirstOpening();
@@ -85,7 +54,35 @@ const Recorder = (props) => {
 
   const handleStartState = () => {
     setImgSrc(stopImg);
-    mediaRecorder.start();
+
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+          video: false,
+        })
+        .then((stream) => {
+          const recorder = new MediaRecorder(stream);
+
+          recorder.ondataavailable = (e) => chunks.push(e.data);
+
+          recorder.onstop = () => {
+            stream.getTracks().forEach((track) => track.stop());
+            const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
+            const audioURL = window.URL.createObjectURL(blob);
+            dispatch(setAudioURL(audioURL));
+            chunks.length = 0;
+          };
+
+          setMediaRecorder(recorder);
+          recorder.start();
+        })
+        .catch(() => {
+          setMediaAvailable(false);
+        });
+    } else {
+      setMediaAvailable(false);
+    }
   };
 
   const handleStopState = () => {
