@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { HighLevelStates } from './reducers/applicationSlice';
 import Header from './components/Header';

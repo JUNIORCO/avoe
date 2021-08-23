@@ -68,7 +68,7 @@ const Recorder = (props) => {
 
           recorder.onstop = () => {
             stream.getTracks().forEach((track) => track.stop());
-            const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
+            const blob = new Blob(chunks, { type: 'audio/mp3' });
             const audioURL = window.URL.createObjectURL(blob);
             dispatch(setAudioURL(audioURL));
             chunks.length = 0;
