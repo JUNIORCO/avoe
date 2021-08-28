@@ -1,2 +1,3 @@
 docker build -t juniorco/avoe:latest .
 docker run -p 8080:443 juniorco/avoe:latest
+lol
