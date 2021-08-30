@@ -9,11 +9,13 @@ import {
   recorderStop,
   setAudioURL,
   setHighLevelState,
+  setAudioBase64
 } from '../reducers/applicationSlice';
 import '../stylesheets/Recorder.css';
 import micImg from '../assets/microphone.png';
 import stopImg from '../assets/stop.png';
 import checkImg from '../assets/check.png';
+import { blobToBase64 } from '../helpers/common';
 
 const Recorder = (props) => {
   const { appState } = props;
@@ -66,11 +68,14 @@ const Recorder = (props) => {
 
           recorder.ondataavailable = (e) => chunks.push(e.data);
 
-          recorder.onstop = () => {
-            stream.getTracks().forEach((track) => track.stop());
-            const blob = new Blob(chunks, { type: 'audio/mp4' });
+          recorder.onstop = async () => {
+            stream.getTracks()
+              .forEach((track) => track.stop());
+            const blob = new Blob(chunks, { type: 'audio/mp3' });
             const audioURL = window.URL.createObjectURL(blob);
             dispatch(setAudioURL(audioURL));
+            const audioBase64 = (await blobToBase64(blob)).split(',')[1];
+            dispatch(setAudioBase64(audioBase64));
             chunks.length = 0;
           };
 

@@ -1,0 +1,6 @@
+gcloud workflows deploy avoe-workflow --source avoe-workflow.yaml
+gcloud workflows run avoe-workflow
+
+gcloud functions deploy avoeRunWorkflow --trigger-http --runtime nodejs12 --no-allow-unauthenticated
+
+curl -X POST http://localhost:8080 -H "Content-Type:application/json"  -d '{"temp":"50"}'

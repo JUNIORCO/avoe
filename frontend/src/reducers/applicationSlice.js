@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { handleStyleSubmit } from '../apiCalls';
 
 export const AppStates = Object.freeze({
   FIRST_OPENING: 'first-opening-of-avoe',
@@ -20,6 +21,8 @@ const initialState = {
   highLevelState: HighLevelStates.RECORDER,
   appState: AppStates.FIRST_OPENING,
   audioURL: null,
+  audioBase64: '',
+  styleSelected: '',
 };
 
 export const applicationSlice = createSlice({
@@ -31,6 +34,9 @@ export const applicationSlice = createSlice({
     },
     setAudioURL: (state, action) => {
       state.audioURL = action.payload;
+    },
+    setAudioBase64: (state, action) => {
+      state.audioBase64 = action.payload;
     },
     firstOpening: (state, action) => {
       state.appState = AppStates.FIRST_OPENING;
@@ -50,11 +56,13 @@ export const applicationSlice = createSlice({
     styleSelectionStart: (state) => {
       state.appState = AppStates.STYLE_SELECTION_START;
     },
-    styleSelected: (state) => {
+    styleSelected: (state, action) => {
       state.appState = AppStates.STYLE_SELECTED;
+      state.styleSelected = action.payload;
     },
-    styleApplied: (state) => {
+    styleApplied: async (state) => {
       state.appState = AppStates.STYLE_APPLIED;
+      await handleStyleSubmit(state.audioBase64, state.styleSelected);
     },
   },
 });
@@ -62,6 +70,7 @@ export const applicationSlice = createSlice({
 export const {
   setHighLevelState,
   setAudioURL,
+  setAudioBase64,
   firstOpening,
   recorderIdle,
   recorderStart,

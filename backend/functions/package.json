@@ -1,0 +1,23 @@
+{
+  "name": "avoe-functions",
+  "version": "1.0.0",
+  "description": "avoe functions.",
+  "main": "avoeRunWorkflow.js",
+  "scripts": {
+    "test-avoeRunWorkflow": "node node_modules/@google-cloud/functions-framework --target=avoeRunWorkflow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JUNIORCO/avoe.git"
+  },
+  "author": "JUNIORCO",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JUNIORCO/avoe/issues"
+  },
+  "homepage": "https://github.com/JUNIORCO/avoe#readme",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^1.9.0",
+    "@google-cloud/workflows": "^1.3.0"
+  }
+}

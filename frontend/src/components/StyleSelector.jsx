@@ -6,7 +6,7 @@ import {
   recorderIdle,
   setHighLevelState,
   styleApplied,
-  styleSelected,
+  styleSelected as setStyleSelected,
 } from '../reducers/applicationSlice';
 import { connect, useDispatch } from 'react-redux';
 import CharacterIcon from './CharacterIcon';
@@ -37,25 +37,8 @@ const NextButton = withStyles(() => ({
 }))(Button);
 
 const StyleSelector = (props) => {
-  const { appState } = props;
-  const [characterSelected, setCharacterSelected] = useState(null);
+  const { appState, styleSelected } = props;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    switch (appState) {
-      case AppStates.STYLE_APPLIED:
-        handleCharacterSubmit();
-    }
-  }, [appState]);
-
-  const handleClick = (character) => {
-    dispatch(styleSelected());
-    setCharacterSelected(character);
-  };
-
-  const handleCharacterSubmit = () => {
-
-  }
 
   return (
     <section>
@@ -83,8 +66,10 @@ const StyleSelector = (props) => {
               <CharacterIcon
                 id={character.id}
                 image={character.image}
-                selected={characterSelected === character.id}
-                handleClick={handleClick}
+                selected={styleSelected === character.id}
+                handleClick={() => {
+                  dispatch(setStyleSelected(character.id));
+                }}
               />
             ))}
           </Grid>
@@ -100,7 +85,7 @@ const StyleSelector = (props) => {
               dispatch(styleApplied());
             }}
           >
-            {`${text.applyBtn} ${characterSelected}`}
+            {`${text.applyBtn} ${styleSelected}`}
           </NextButton>
         </Box>
       ) : null}
@@ -108,6 +93,9 @@ const StyleSelector = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ appState: state.application.appState });
+const mapStateToProps = (state) => ({
+  appState: state.application.appState,
+  styleSelected: state.application.styleSelected,
+});
 
 export default connect(mapStateToProps)(StyleSelector);
