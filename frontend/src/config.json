@@ -1,0 +1,7 @@
+{
+  "google": {
+    "function": {
+      "url": "https://us-central1-avoe-323702.cloudfunctions.net/invokeWorkflow"
+    }
+  }
+}

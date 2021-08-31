@@ -16,10 +16,10 @@
 //   let access_token = res.config.headers['Authorization'];
 // };
 
-import google from './constants/google.json';
+import config from './config.json';
 
 export const handleStyleSubmit = async (audioBase64, styleSelected) => {
-  const res = await fetch(google.avoeRunWorkflowUrl, {
+  const res = await fetch(config.google.function.url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
