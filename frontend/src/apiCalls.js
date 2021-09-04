@@ -25,6 +25,8 @@ export const handleStyleSubmit = async (audioBase64, styleSelected) => {
     private_key: process.env.INVOKE_WORKFLOW_PRIVATE_KEY,
   };
 
+  console.log(credentials);
+
   const cloudFunctionsServiceClient = new CloudFunctionsServiceClient({
     credentials,
   });
