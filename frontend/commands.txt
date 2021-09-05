@@ -1,5 +1,5 @@
-docker build -t juniorco/avoe:latest .
-docker run -p 8080:443 juniorco/avoe:latest
+docker build -t juniorco/avoe-frontend:latest .
+docker run -p 8080:443 juniorco/avoe-frontend:latest
 
 curl -X POST https://us-central1-avoe-323702.cloudfunctions.net/avoeRunWorkflow -H "Content-Type:application/json" -H "Authorization:Bearer -----BEGIN PRIVATE KEY-----\n\n-----END PRIVATE KEY-----\n"  -d '{"temp":"50"}'
 

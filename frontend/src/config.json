@@ -1,5 +1,11 @@
 {
   "google": {
+    "backend": {
+      "url": "https://avoe-backend-5ieond4edq-uw.a.run.app"
+    },
+    "frontend": {
+      "serviceAccount": "frontend-service@avoe-323702.iam.gserviceaccount.com"
+    },
     "function": {
       "url": "https://us-central1-avoe-323702.cloudfunctions.net/invokeWorkflow"
     }
