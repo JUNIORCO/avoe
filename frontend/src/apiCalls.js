@@ -10,5 +10,4 @@ export const handleStyleSubmit = async (audioBase64, styleSelected) => {
       styleSelected
     })
   });
-
 };
