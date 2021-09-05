@@ -14,4 +14,3 @@ docker run -p 8080:443 juniorco/avoe-backend:latest
 
 gcloud builds submit --tag us.gcr.io/avoe-323702/avoe-backend
 gcloud run deploy avoe-backend --image us.gcr.io/avoe-323702/avoe-backend --platform managed --region us-west1
-
