@@ -1,0 +1,6 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us.gcr.io/avoe-323702/avoe-frontend', '.' ]
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: [ 'run', 'deploy', 'avoe-frontend', '--image', 'us.gcr.io/avoe-323702/avoe-frontend', '--region', 'us-west1', '--platform', 'managed' ]
