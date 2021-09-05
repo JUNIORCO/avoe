@@ -8,7 +8,7 @@ export const handleStyleSubmit = async (audioBase64, styleSelected) => {
     body: JSON.stringify({
       audioBase64,
       styleSelected
-    })
+    }),
+    mode: 'no-cors'
   });
-
 };
