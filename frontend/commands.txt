@@ -5,4 +5,3 @@ curl -X POST https://us-central1-avoe-323702.cloudfunctions.net/avoeRunWorkflow 
 
 gcloud builds submit --tag us.gcr.io/avoe-323702/avoe-frontend
 gcloud run deploy avoe-frontend --image us.gcr.io/avoe-323702/avoe-frontend --platform managed --region us-west1
-
