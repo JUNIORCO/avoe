@@ -2,3 +2,6 @@ docker build -t juniorco/avoe:latest .
 docker run -p 8080:443 juniorco/avoe:latest
 
 curl -X POST https://us-central1-avoe-323702.cloudfunctions.net/avoeRunWorkflow -H "Content-Type:application/json" -H "Authorization:Bearer -----BEGIN PRIVATE KEY-----\n\n-----END PRIVATE KEY-----\n"  -d '{"temp":"50"}'
+
+gcloud builds submit --tag us.gcr.io/avoe-323702/avoe-frontend
+gcloud run deploy avoe-frontend --image us.gcr.io/avoe-323702/avoe-frontend --platform managed --region us-west1
