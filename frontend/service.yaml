@@ -1,0 +1,15 @@
+apiVersion: serving.avoe.prod/v1
+kind: Service
+metadata:
+  name: avoe
+spec:
+  template:
+    spec:
+      containers:
+        - image: us.gcr.io/avoe-323702/avoe/avoe:290f3059eccd4b6d4dcf4396bcd390262a0dac04
+          env:
+            - name: INVOKE_WORKFLOW_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: 2
+                  name: functionInvokerSecret
