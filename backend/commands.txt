@@ -1,6 +1,16 @@
+gcloud auth application-default login
+
 gcloud workflows deploy avoe-workflow --source avoe-workflow.yaml
 gcloud workflows run avoe-workflow
 
 gcloud functions deploy avoeRunWorkflow --trigger-http --runtime nodejs12 --no-allow-unauthenticated
 
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/junior/Downloads/avoe-323702-12840dce07af.json"
+
 curl -X POST http://localhost:8080 -H "Content-Type:application/json"  -d '{"temp":"50"}'
+
+docker build -t juniorco/avoe-backend:latest .
+docker run -p 8080:443 juniorco/avoe-backend:latest
+
+gcloud builds submit --tag us.gcr.io/avoe-323702/avoe-backend
+gcloud run deploy avoe-backend --image us.gcr.io/avoe-323702/avoe-backend --platform managed --region us-west1

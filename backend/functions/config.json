@@ -1,0 +1,13 @@
+{
+  "google": {
+    "projectId": "avoe-323702",
+    "function": {
+      "name": ""
+    },
+    "workflow": {
+      "name": "avoe-workflow",
+      "location": "us-central1",
+      "secret": "avoe-workflowInvokerSecret"
+    }
+  }
+}
